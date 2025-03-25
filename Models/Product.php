@@ -5,6 +5,7 @@ class Product{
     public $price;
     public $stockLevel;
     public $categoryName;
+    public $imageUrl;
 
 };
 

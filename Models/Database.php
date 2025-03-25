@@ -6,9 +6,9 @@
             $host = "localhost";
             $db   = "shoppen";
             $user = "root";
-            $pass = "hejsan123";
+            $pass = "root";
 
-            $dsn = "mysql:host=$host;port=3306;dbname=$db";
+            $dsn = "mysql:host=$host:8889;dbname=$db";
             $this->pdo = new PDO($dsn, $user, $pass);
             $this->initDatabase();
         }
