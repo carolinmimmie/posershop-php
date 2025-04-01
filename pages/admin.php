@@ -34,20 +34,21 @@ $sortOrder = $_GET['sortOrder'] ?? "";
     <!-- Section-->
     <section class="py-5">
         <div class="container px-4 px-lg-5 mt-5">
+            <a href="/admin/new" class="btn btn-primary">Create New</a>
             <table class="table">
                 <thead>
                     <th>Produktnamn
-                        <a href="admin.php?sortCol=title&sortOrder=asc"><i class="bi bi-arrow-down-circle-fill"></i></a>
-                        <a href="admin.php?sortCol=title&sortOrder=desc"><i class="bi bi-arrow-up-circle-fill"></i></a>
+                        <a href="admin?sortCol=title&sortOrder=asc"><i class="bi bi-arrow-down-circle-fill"></i></a>
+                        <a href="admin?sortCol=title&sortOrder=desc"><i class="bi bi-arrow-up-circle-fill"></i></a>
                     </th>
-                    <th>Kategori <a href="admin.php?sortCol=categoryName&sortOrder=asc"><i class="bi bi-arrow-down-circle-fill"></i></a>
-                        <a href="admin.php?sortCol=categoryName&sortOrder=desc"><i class="bi bi-arrow-up-circle-fill"></i></a>
+                    <th>Kategori <a href="admin?sortCol=categoryName&sortOrder=asc"><i class="bi bi-arrow-down-circle-fill"></i></a>
+                        <a href="admin?sortCol=categoryName&sortOrder=desc"><i class="bi bi-arrow-up-circle-fill"></i></a>
                     </th>
-                    <th>Pris <a href="admin.php?sortCol=price&sortOrder=asc"><i class="bi bi-arrow-down-circle-fill"></i></a>
-                        <a href="admin.php?sortCol=price&sortOrder=desc"><i class="bi bi-arrow-up-circle-fill"></i></a>
+                    <th>Pris <a href="admin?sortCol=price&sortOrder=asc"><i class="bi bi-arrow-down-circle-fill"></i></a>
+                        <a href="admin?sortCol=price&sortOrder=desc"><i class="bi bi-arrow-up-circle-fill"></i></a>
                     </th>
-                    <th>Lagersaldo <a href="admin.php?sortCol=stockLevel&sortOrder=asc"><i class="bi bi-arrow-down-circle-fill"></i></a>
-                        <a href="admin.php?sortCol=stockLevel&sortOrder=desc"><i class="bi bi-arrow-up-circle-fill"></i></a>
+                    <th>Lagersaldo <a href="admin?sortCol=stockLevel&sortOrder=asc"><i class="bi bi-arrow-down-circle-fill"></i></a>
+                        <a href="admin?sortCol=stockLevel&sortOrder=desc"><i class="bi bi-arrow-up-circle-fill"></i></a>
                     </th>
                     <th>Modifiera</th>
                 </thead>
@@ -59,7 +60,7 @@ $sortOrder = $_GET['sortOrder'] ?? "";
                             <td><?php echo $prod->categoryName; ?></td>
                             <td><?php echo $prod->price; ?></td>
                             <td><?php echo $prod->stockLevel; ?></td>
-                            <td><a href="edit.php?id=<?php echo $prod->id; ?>" class="btn btn-primary">Ändra</a></td>
+                            <td><a href="/admin/edit?id=<?php echo $prod->id; ?>" class="btn btn-primary">Ändra</a></td>
 
 
                         </tr>

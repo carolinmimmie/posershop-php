@@ -5,12 +5,13 @@ class Database
 
     function __construct()
     {
-        $host = "localhost";
-        $db   = "shoppen";
-        $user = "root";
-        $pass = "root";
+        $host = $_ENV['HOST'];
+        $db   = $_ENV['DB'];
+        $user = $_ENV['USER'];
+        $pass = $_ENV['PASSWORD'];
+        $port = $_ENV['PORT'];
 
-        $dsn = "mysql:host=$host:8889;dbname=$db";
+        $dsn = "mysql:host=$host:$port;dbname=$db";
         $this->pdo = new PDO($dsn, $user, $pass);
         $this->initDatabase();
     }
@@ -45,6 +46,19 @@ class Database
             'categoryName' => $product->categoryName,
             'id' => $product->id,
             'imageUrl' => $product->imageUrl
+        ]);
+    }
+
+    function insertProduct($title, $stockLevel, $price, $categoryName, $imageUrl)
+    {
+        $sql = "INSERT INTO Products (title,price,stockLevel,categoryName,imageUrl) VALUES (:title,:price,:stockLevel,:categoryName,:imageUrl)";
+        $query = $this->pdo->prepare($sql);
+        $query->execute([
+            'title' => $title,
+            'price' => $price,
+            'stockLevel' => $stockLevel,
+            'categoryName' => $categoryName,
+            'imageUrl' => $imageUrl,
         ]);
     }
 
