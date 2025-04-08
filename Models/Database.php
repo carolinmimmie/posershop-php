@@ -1,7 +1,13 @@
 <?php
+require_once('Models/UserDatabase.php');
 class Database
 {
     public $pdo;
+    private $usersDatabase;
+    function getUsersDatabase()
+    {
+        return $this->usersDatabase;
+    }
 
     function __construct()
     {
@@ -14,6 +20,9 @@ class Database
         $dsn = "mysql:host=$host:$port;dbname=$db";
         $this->pdo = new PDO($dsn, $user, $pass);
         $this->initDatabase();
+        $this->usersDatabase = new UserDatabase($this->pdo);
+        $this->usersDatabase->setupUsers();
+        $this->usersDatabase->seedUsers();
     }
 
     function initDatabase()
