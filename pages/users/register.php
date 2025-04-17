@@ -21,9 +21,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } catch (\Delight\Auth\InvalidEmailException $e) {
         $errorMessage = "Ej korrekt email";
     } catch (\Delight\Auth\InvalidPasswordException $e) {
-        $errorMessage = "Invalid password";
+        $errorMessage = "Felaktigt lösenord";
     } catch (\Delight\Auth\UserAlreadyExistsException $e) {
-        $errorMessage = "Finns redan";
+        $errorMessage = "Användare finns redan";
     } catch (\Exception $e) {
         $errorMessage = "Ngt gick fel";
     }
@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <?php Nav(); ?>
     <section class="py-5">
         <div class="container px-4 px-lg-5 mt-5">
-            <h1>Register</h1>
+            <h1>Registrera dig</h1>
             <?php
             if ($errorMessage != "") {
                 echo "<div class='alert alert-danger' role='alert'>" . $errorMessage . "</div>";
@@ -64,17 +64,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <form method="POST">
                 <div class="form-group">
                     <label for="username">Email</label>
-                    <input type="text" class="form-control" name="username" value="<?php echo $username ?>">
+                    <input type="text" class="form-control" name="username" placeholder="namn@mail.com" value="<?php echo $username ?>">
                 </div>
                 <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" class="form-control" name="password" value="">
+                    <label for="password">Lösenord</label>
+                    <input type="password" class="form-control" name="password" value="" placeholder="••••••••">
                 </div>
                 <div class="form-group">
                     <label for="password">Password igen</label>
-                    <input type="password" class="form-control" name="password2" value="">
+                    <input type="password" class="form-control" name="password2" value="" placeholder="••••••••">
                 </div>
-                <input type="submit" class="btn btn-primary" value="Register">
+                <div class="my-2">
+                    <input type="submit" class="btn btn-dark" value="Register">
+                </div>
             </form>
 
 

@@ -32,9 +32,9 @@ $sortOrder = $_GET['sortOrder'] ?? "";
     <!-- Navigation-->
     <?php Nav(); ?>
     <!-- Section-->
-    <section class="py-5">
+    <section class="py-2">
         <div class="container px-4 px-lg-5 mt-5">
-            <a href="/admin/new" class="btn btn-primary">Create New</a>
+
             <table class="table">
                 <thead>
                     <th>Produktnamn
@@ -50,6 +50,11 @@ $sortOrder = $_GET['sortOrder'] ?? "";
                     <th>Lagersaldo <a href="admin?sortCol=stockLevel&sortOrder=asc"><i class="bi bi-arrow-down-circle-fill"></i></a>
                         <a href="admin?sortCol=stockLevel&sortOrder=desc"><i class="bi bi-arrow-up-circle-fill"></i></a>
                     </th>
+                    <th>Popularitet <a href="admin?sortCol=popularityFactor&sortOrder=asc"><i class="bi bi-arrow-down-circle-fill"></i></a>
+                        <a href="admin?sortCol=popularityFactor&sortOrder=desc"><i class="bi bi-arrow-up-circle-fill"></i></a>
+                    </th>
+
+
                     <th>Modifiera</th>
                 </thead>
 
@@ -60,13 +65,19 @@ $sortOrder = $_GET['sortOrder'] ?? "";
                             <td><?php echo $prod->categoryName; ?></td>
                             <td><?php echo $prod->price; ?></td>
                             <td><?php echo $prod->stockLevel; ?></td>
-                            <td><a href="/admin/edit?id=<?php echo $prod->id; ?>" class="btn btn-primary">Ändra</a></td>
+                            <td><?php echo $prod->popularityFactor; ?></td>
+                            <td><a href="/admin/edit?id=<?php echo $prod->id; ?>" class="btn btn-dark">Ändra</a></td>
+                            <td><a href="/admin/delete?id=<?php echo $prod->id; ?>" class=" btn btn-danger">Radera</a></td>
 
 
                         </tr>
                     <?php } ?>
                 </tbody>
+
             </table>
+            <div class="text-end">
+                <a href="/admin/new" class="btn btn-secondary">Skapa ny produkt</a>
+            </div>
         </div>
     </section>
     <!-- Footer-->

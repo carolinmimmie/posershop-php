@@ -1,10 +1,22 @@
 <?php
 require_once('Models/Product.php');
 require_once("components/Footer.php");
-require_once('Models/Database.php');
 require_once("components/Nav.php");
+require_once('Models/Database.php');
 
+$id = $_GET['id'];
+$confirmed = $_GET['confirmed'] ?? false;
 $dbContext = new Database();
+// Hämta den produkt med detta ID
+
+$product = $dbContext->getProduct($id); // TODO felhantering om inget produkt
+
+if ($confirmed == true) {
+    $dbContext->deleteProduct($id);
+    header("Location: /admin");
+    exit;
+}
+
 
 ?>
 
@@ -16,7 +28,7 @@ $dbContext = new Database();
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Shop Homepage - Start Bootstrap Template</title>
+    <title>Postergalleriet</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Bootstrap icons-->
@@ -27,14 +39,20 @@ $dbContext = new Database();
 
 <body>
     <?php Nav(); ?>
-    <section class="py-5">
+    <section class="py-2">
         <div class="container px-4 px-lg-5 mt-5">
-            <h1>Tack</h1>
-            <p>Tack för din registrering</p>
-            <div class="my-2">
-                <a href="/user/login" class="btn btn-dark">Logga in</a>
-            </div>
+
+            <h1><?php echo $product->title; ?></h1>
+            <img class="card-img-top" src="<?php echo $product->imageUrl; ?>" alt="Produktbild" />
+
+            <h2>Är du säker att du vill ta bort produkten?</h2>
+            <a href="/admin/delete?id=<?php echo $id; ?>&confirmed=true" class="btn btn-danger">Ja</a>
+            <a href="/admin/products" class="btn btn-primary">Nej</a>
+
+        </div>
     </section>
+
+
 
     <?php Footer(); ?>
     <!-- Bootstrap core JS-->
@@ -45,10 +63,3 @@ $dbContext = new Database();
 </body>
 
 </html>
-
-<!-- 
-<input type="text" name="title" value="<?php echo $product->title ?>">
-        <input type="text" name="price" value="<?php echo $product->price ?>">
-        <input type="text" name="stockLevel" value="<?php echo $product->stockLevel ?>">
-        <input type="text" name="categoryName" value="<?php echo $product->categoryName ?>">
-        <input type="submit" value="Uppdatera"> -->

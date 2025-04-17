@@ -1,24 +1,37 @@
 <?php
+// nnehåller en klass för att hantera användare via biblioteket Delight Auth, vilket är ett färdigt system för inloggning, registrering, återställning m.m.
+// Laddar in alla externa paket från Composer, t.ex. Delight Auth
+
 require 'vendor/autoload.php';
 
+// Klassen ansvarar för att hantera användare i databasen
 class UserDatabase
 {
-    private $pdo;
-    private $auth;
+  // Lagrar PDO-anslutningen till databasen
+  private $pdo;
 
-    function getAuth()
-    {
-        return $this->auth;
-    }
-    function __construct($pdo)
-    {
-        $this->pdo = $pdo;
-        $this->auth = new \Delight\Auth\Auth($pdo);
-    }
+  // Lagrar Delight\Auth instansen
+  private $auth;
 
-    function setupUsers()
-    {
-        $sql = "
+  // Hämtar Auth-objektet om vi behöver använda det utanför klassen
+  function getAuth()
+  {
+    return $this->auth;
+  }
+
+  // Konstruktor som körs när vi skapar ett nytt UserDatabase-objekt
+  function __construct($pdo)
+  {
+    $this->pdo = $pdo;
+    $this->auth = new \Delight\Auth\Auth($pdo);
+  }
+
+  // Skapar användartabellerna i databasen (Delight Auth behöver dessa)
+  function setupUsers()
+  {
+    // SQL-skriptet skapar ALLA tabeller som Delight Auth behöver
+
+    $sql = "
         -- PHP-Auth (https://github.com/delight-im/PHP-Auth)
         -- Copyright (c) delight.im (https://www.delight.im/)
         -- Licensed under the MIT License (https://opensource.org/licenses/MIT)
@@ -91,15 +104,20 @@ class UserDatabase
         /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
         /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
         /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;";
-        $this->pdo->exec($sql);
-    }
+    // Kör hela SQL-skriptet på databasen
+
+    $this->pdo->exec($sql);
+  }
 
 
-    //ANVÄND DENNA FUNKTION ÄVEN FÖR PRODUKTERNA!!!!!
-    function seedUsers()
-    {
-        if ($this->pdo->query("select * from users where email='carolinmimmie@gmail.com'")->rowCount() == 0) {
-            $userId = $this->auth->admin()->createUser("carolinmimmie@gmail.com", "root", "carolin");
-        }
+  //ANVÄND DENNA FUNKTION ÄVEN FÖR PRODUKTERNA!!!!!
+  // Skapar en användare om den inte redan finns (kan användas vid test eller setup)
+  function seedUsers()
+  {
+    // Kollar om användaren redan finns
+    if ($this->pdo->query("select * from users where email='carolinmimmie@gmail.com'")->rowCount() == 0) {
+      // Skapar en ny admin-användare med e-post, lösenord och användarnamn
+      $userId = $this->auth->admin()->createUser("carolinmimmie@gmail.com", "root", "carolin");
     }
+  }
 }

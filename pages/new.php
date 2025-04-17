@@ -8,6 +8,7 @@ require_once("Models/Database.php");
 // Hämta den produkt med detta ID
 $dbContext = new Database();
 
+$productSavedMessage = "";
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Här kommer vi när man har tryckt  på SUBMIT
@@ -17,8 +18,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $price = $_POST['price'];
     $categoryName = $_POST['categoryName'];
     $imageUrl = $_POST['imageUrl'];
-    $dbContext->insertProduct($title, $stockLevel, $price, $categoryName, $imageUrl);
-    echo "<h1>Produkten har skapats</h1>";
+    $popularityFactor = $_POST['popularityFactor'];
+    $dbContext->insertProduct($title, $stockLevel, $price, $categoryName, $imageUrl, $popularityFactor);
+    $productSavedMessage = "Produkten har sparats i databasen";
 } else {
     // Det är INTE ett formulär som har postats - utan man har klickat in på länk tex edit.php?id=12
 }
@@ -44,21 +46,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
     <!-- Navigation-->
     <?php Nav(); ?>
-    <section class="py-5">
+    <section class="py-2">
         <div class="container px-4 px-lg-5 mt-5">
+            <?php if ($productSavedMessage): ?>
+                <div class="alert alert-success">
+                    <?php echo $productSavedMessage; ?>
+                </div>
+            <?php endif; ?>
 
             <?php
-
-
-            // Hämta den produkt med detta ID
-            // $product = getProduct($id); // TODO felhantering om inget produkt
-
-
-
-
-            //Kunna lagra i databas
-
-
             ?>
 
             <form method="POST">
@@ -82,7 +78,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <label for="imageUrl">Bildkälla</label>
                     <input type="text" class="form-control" name="imageUrl" value="">
                 </div>
-                <input type="submit" class="btn btn-primary" value="Spara produkt">
+                <div class="form-group">
+                    <label for="popularityFactor">popularityFactor</label>
+                    <input type="text" class="form-control" name="popularityFactor" value="">
+                </div>
+                <div class="my-2">
+                    <input type="submit" class="btn btn-dark my-6" value="Spara produkt">
+                </div>
             </form>
         </div>
     </section>
@@ -98,10 +100,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </body>
 
 </html>
-
-<!-- 
-<input type="text" name="title" value="<?php echo $product->title ?>">
-        <input type="text" name="price" value="<?php echo $product->price ?>">
-        <input type="text" name="stockLevel" value="<?php echo $product->stockLevel ?>">
-        <input type="text" name="categoryName" value="<?php echo $product->categoryName ?>">
-        <input type="submit" value="Uppdatera"> -->

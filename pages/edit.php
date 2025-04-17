@@ -7,6 +7,8 @@ require_once("Models/Database.php");
 $id = $_GET['id'];
 // Hämta den produkt med detta ID
 $dbContext = new Database();
+
+$productUpdateMessage = "";
 $product = $dbContext->getProduct($id); // TODO
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -17,8 +19,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $product->price = $_POST['price'];
     $product->categoryName = $_POST['categoryName'];
     $product->imageUrl = $_POST['imageUrl'];
+    $product->popularityFactor = $_POST['popularityFactor'];
     $dbContext->updateProduct($product);
-    echo "<h1>Produkten har uppdaterats</h1>";
+    $productUpdateMessage = "Produkten har sparats i databasen";
 } else {
     // Det är INTE ett formulär som har postats - utan man har klickat in på länk tex edit.php?id=12
 }
@@ -32,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Basic Wear</title>
+    <title>Postergalleriet</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Bootstrap icons-->
@@ -44,19 +47,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
     <!-- Navigation-->
     <?php Nav(); ?>
-    <section class="py-5">
+    <section class="py-2">
         <div class="container px-4 px-lg-5 mt-5">
+            <?php if ($productUpdateMessage): ?>
+                <div class="alert alert-sucess">
+                    <?php echo $productUpdateMessage; ?>
+                </div>
+            <?php endif; ?>
 
             <?php
 
             $id = $_GET['id'];
-            // Hämta den produkt med detta ID
-            // $product = getProduct($id); // TODO felhantering om inget produkt
 
-
-
-
-            //Kunna lagra i databas
 
 
             ?>
@@ -82,7 +84,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <label for="imageUrl">Bildkälla</label>
                     <input type="text" class="form-control" name="imageUrl" value="<?php echo $product->imageUrl ?>">
                 </div>
-                <input type="submit" class="btn btn-primary" value="Uppdatera">
+                <div class="form-group">
+                    <label for="popularityFactor">Popularitet</label>
+                    <input type="text" class="form-control" name="popularityFactor" value="<?php echo $product->popularityFactor ?>">
+                </div>
+                <div class="my-2">
+                    <input type="submit" class="btn btn-dark" value="Uppdatera">
+                </div>
             </form>
         </div>
     </section>
@@ -98,10 +106,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </body>
 
 </html>
-
-<!-- 
-<input type="text" name="title" value="<?php echo $product->title ?>">
-        <input type="text" name="price" value="<?php echo $product->price ?>">
-        <input type="text" name="stockLevel" value="<?php echo $product->stockLevel ?>">
-        <input type="text" name="categoryName" value="<?php echo $product->categoryName ?>">
-        <input type="submit" value="Uppdatera"> -->

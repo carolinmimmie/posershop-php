@@ -53,25 +53,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
     <section class="py-5">
         <div class="container px-4 px-lg-5 mt-5">
-            <h1>Log in</h1>
+            <h1>Logga in</h1>
             <?php
             if ($errorMessage != "") {
                 echo "<div class='alert alert-danger' role='alert'>" . $errorMessage . "</div>";
             }
             ?>
-            <p>Logga in med din email och lösenord</p>
+
             <form method="POST">
                 <div class="form-group">
-                    <label for="username">Email</label>
+                    <label for="username">Mail</label>
                     <input type="text" class="form-control" name="username" value="<?php echo $username ?>">
                 </div>
                 <div class="form-group">
-                    <label for="password">Password</label>
+                    <label for="password">Lösenord</label>
                     <input type="password" class="form-control" name="password" value="">
                 </div>
-                <input type="submit" class="btn btn-primary" value="Login">
-                <a href="/register" class="btn btn-secondary">Register</a>
-                <a href="/forgot" class="btn btn-secondary">Forgot password</a>
+                <div class="my-2">
+                    <input type="submit" class="btn btn-dark " value="Logga in">
+                    <a href="/register" class="btn btn-secondary">Registrera dig</a>
+                    <a href="/forgot" class="btn btn-secondary">Glömt lösenord</a>
+                </div>
             </form>
 
 
