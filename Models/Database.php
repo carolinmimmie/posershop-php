@@ -41,7 +41,8 @@ class Database
                 price INT,
                 stockLevel INT,
                 categoryName VARCHAR(50),
-                popularityFactor INT
+                popularityFactor INT,
+                description VARCHAR(1000)
             )');
     }
 

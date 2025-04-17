@@ -8,4 +8,5 @@ class Product
     public $categoryName;
     public $imageUrl;
     public $popularityFactor;
+    public $decription;
 };

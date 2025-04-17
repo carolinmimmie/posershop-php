@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
             ?>
-
+            <h2>Ändra produkt</h2>
             <form method="POST">
                 <div class="form-group">
                     <label for="title">Produkt</label>

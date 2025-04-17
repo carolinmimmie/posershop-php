@@ -86,8 +86,11 @@ $dbContext = new Database();
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer bg-transparent py-2">
-                                <div class="text-center "><a class="btn bg-dark mt-auto text-white" href="#">Köp nu</a></div>
+                                <div class="text-center">
+                                    <a class="btn bg-dark mt-auto text-white" href="/productdetails?id=<?php echo $prod->id; ?>">Köp nu</a>
+                                </div>
                             </div>
+
                         </div>
                     </div>
                 <?php } ?>
@@ -102,23 +105,23 @@ $dbContext = new Database();
     <section class="py-2">
         <div class="container px-4 px-lg-5 mt-5">
             <div>
-                <h2>Tavlor Online hos Postergalleriet</h2>
+                <h3>Tavlor Online hos Postergalleriet</h3>
                 <p>Välkommen till Postergalleriet – din destination för stilrena och trendiga tavlor online! Vi erbjuder ett brett sortiment av posters och konstverk i olika stilar, perfekt för att förvandla ditt hem till ett personligt galleri.</p>
             </div>
             <div>
-                <h2>Skapa din egen tavelvägg</h2>
+                <h3>Skapa din egen tavelvägg</h3>
                 <p>Med våra tavlor kan du enkelt skapa en unik tavelvägg som speglar din personliga stil. Välj bland moderna fotoposters, abstrakta motiv, svartvita klassiker och mycket mer. Kombinera olika storlekar och ramar för att skapa en dynamisk och inspirerande vägg.</p>
             </div>
             <div>
-                <h2>Tavlor för alla rum</h2>
+                <h3>Tavlor för alla rum</h3>
                 <p>Oavsett om du inreder vardagsrummet, sovrummet, hallen eller kontoret har vi tavlor som passar. Vårt sortiment är noggrant utvalt för att erbjuda något för varje smak och inredningsstil.</p>
             </div>
             <div>
-                <h2>Unika motiv och hög kvalitet</h2>
+                <h3>Unika motiv och hög kvalitet</h3>
                 <p>Vi samarbetar med talangfulla konstnärer och fotografer för att erbjuda exklusiva motiv som du inte hittar någon annanstans. Alla våra posters trycks på högkvalitativt papper för att säkerställa lång hållbarhet och skarpa detaljer.</p>
             </div>
             <div>
-                <h2>Inspiration och tips</h2>
+                <h3>Inspiration och tips</h3>
                 <p>Behöver du inspiration? Utforska våra inspirationssidor där vi visar olika sätt att kombinera tavlor och skapa harmoniska tavelväggar. Följ oss på sociala medier för dagliga tips, nyheter och exklusiva erbjudanden.</p>
 
                 <p>Skapa ditt eget galleri hemma med Postergalleriet – där konst möter personlig stil!</p>
