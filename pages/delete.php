@@ -8,13 +8,13 @@ $id = $_GET['id'];
 $confirmed = $_GET['confirmed'] ?? false;
 $dbContext = new Database();
 // Hämta den produkt med detta ID
-
+$productDeleteMessage = "";
 $product = $dbContext->getProduct($id); // TODO felhantering om inget produkt
 
 if ($confirmed == true) {
     $dbContext->deleteProduct($id);
-    header("Location: /admin");
-    exit;
+    $productDeleteMessage = "Produkten har tagits bort i databasen";
+    $product = null;
 }
 
 
@@ -39,16 +39,25 @@ if ($confirmed == true) {
 
 <body>
     <?php Nav(); ?>
-    <section class="py-2">
+    <section class="py-6">
         <div class="container px-4 px-lg-5 mt-5">
+            <?php if ($productDeleteMessage): ?>
+                <div class="alert alert-success">
+                    <?php echo $productDeleteMessage; ?>
+                </div>
+            <?php endif; ?>
 
-            <h1><?php echo $product->title; ?></h1>
-            <img class="card-img-top" src="<?php echo $product->imageUrl; ?>" alt="Produktbild" />
-
-            <h2>Är du säker att du vill ta bort produkten?</h2>
-            <a href="/admin/delete?id=<?php echo $id; ?>&confirmed=true" class="btn btn-danger">Ja</a>
-            <a href="/admin/products" class="btn btn-primary">Nej</a>
-
+            <?php if ($product !== null): ?>
+                <h1><?php echo $product->title; ?></h1>
+                <img class="card-img-top" src="<?php echo $product->imageUrl; ?>" alt="Produktbild" />
+                <h2>Är du säker på att du vill ta bort produkten?</h2>
+                <a href="/admin/delete?id=<?php echo $id; ?>&confirmed=true" class="btn btn-danger">Ja</a>
+                <a href="/admin" class="btn btn-primary">Nej</a>
+            <?php else: ?>
+                <div class="mb-5">
+                    <a href="/admin" class="btn btn-dark py-8">Tillbaka till adminsidan</a>
+                </div>
+            <?php endif; ?>
         </div>
     </section>
 

@@ -42,13 +42,13 @@ if ($catName == "") {
         <div class="container px-4 px-lg-5 mt-5">
             <div class="row justify-content-center my-4">
                 <div class="col-md-6 text-center">
-                    <h2 class="mb-3">Nyheter</h2>
+                    <h2 class="mb-3"><?php echo $catName ?></h2>
                     <p>Utforska våra senaste posters och kollektioner – designade för att ge ditt hem en personlig och stilren touch.</p>
                 </div>
             </div>
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-spacebetween">
                 <?php
-                foreach ($dbContext->getAllProducts() as $prod) {
+                foreach ($dbContext->getCategoryProducts($catName) as $prod) {
                 ?>
                     <div class="col mb-5">
                         <div class="card h-100 shadow-sm py-3">
@@ -82,7 +82,8 @@ if ($catName == "") {
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer bg-transparent py-2">
-                                <div class="text-center "><a class="btn bg-dark mt-auto text-white" href="#">Köp nu</a></div>
+
+                                <div class="text-center "><a class="btn bg-dark mt-auto text-white" href="/productdetails?id=<?php echo $prod->id; ?>">Köp nu</a></div>
                             </div>
                         </div>
                     </div>

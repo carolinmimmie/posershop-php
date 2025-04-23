@@ -76,7 +76,7 @@ $sortOrder = $_GET['sortOrder'] ?? "";
 
             </table>
             <div class="text-end">
-                <a href="/admin/new" class="btn btn-secondary">Skapa ny produkt</a>
+                <a href="/admin/new" class="btn btn-dark">Skapa ny produkt</a>
             </div>
         </div>
     </section>

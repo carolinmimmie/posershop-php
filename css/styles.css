@@ -23,6 +23,8 @@
       background-color: #84a98c;
 
   }
+
+
   .product-details-img{
 width:500px;
 height:500px;
@@ -3991,6 +3993,14 @@ fieldset:disabled .btn {
   text-decoration: none;
   outline: 0;
   box-shadow: 0 0 0 var(--bs-navbar-toggler-focus-width);
+}
+.linkcolor {
+    color: black; /* Sätter länkarna till svart */
+    text-decoration: none; /* Tar bort understrykning på länkar */
+}
+.linkcolor:hover {
+    color: black;
+    text-decoration: none;
 }
 
 .navbar-toggler-icon {

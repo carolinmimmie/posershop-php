@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </div>
                 <div class="my-2">
                     <input type="submit" class="btn btn-dark " value="Logga in">
-                    <a href="/register" class="btn btn-secondary">Registrera dig</a>
+                    <a href="/user/register" class="btn btn-secondary">Registrera dig</a>
                     <a href="/forgot" class="btn btn-secondary">Glömt lösenord</a>
                 </div>
             </form>

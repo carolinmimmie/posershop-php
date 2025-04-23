@@ -14,7 +14,7 @@ function Nav()
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Posters</a>
+                        <a class="nav-link dropdown-toggle linkcolor" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Posters</a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="/products">Alla posters</a></li>
                             <li>
@@ -28,25 +28,26 @@ function Nav()
 
                         </ul>
                     </li>
-                    <?php
-                    if ($dbContext->getUsersDatabase()->getAuth()->isLoggedIn()) { ?>
-
-                        <li class="nav-item"><a class="nav-link" href="/user/logout">Logga ut</a></li>
-                    <?php } else { ?>
-                        <li class="nav-item"><a class="nav-link" href="/user/login">Logga in</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/user/register">Skapa konto</a></li>
-                    <?php
-                    }
-                    ?>
                 </ul>
-                <?php if ($dbContext->getUsersDatabase()->getAuth()->isLoggedIn()) { ?>
-                    Välkommen <?php echo $dbContext->getUsersDatabase()->getAuth()->getUsername() ?>
-                <?php } ?>
-                <form action="/search" method="GET" class="d-flex gap-3">
+
+                <form action="/search" method="GET" class="d-flex gap-3 ">
                     <input type="text" name="q" value="<?php echo $q; ?>" placeholder="Sök"
                         class="form-control">
                     <button class="btn btn-outline-dark " type="submit">Ok</button>
                 </form>
+                <?php
+                if ($dbContext->getUsersDatabase()->getAuth()->isLoggedIn()) { ?>
+
+                    <li class="nav-item"><a class="nav-link linkcolor linkcolor:hover " href="/user/logout">Logga ut</a></li>
+                <?php } else { ?>
+                    <li class="nav-item color-black"><a class="nav-link linkcolor linkcolor:hover " href="/user/login">Logga in</a></li>
+                    <li class="nav-item"><a class="nav-link linkcolor linkcolor:hover " href="/user/register">Skapa konto</a></li>
+                <?php
+                }
+                ?>
+                <?php if ($dbContext->getUsersDatabase()->getAuth()->isLoggedIn()) { ?>
+                    Hej <?php echo ucfirst($dbContext->getUsersDatabase()->getAuth()->getUsername()) ?>
+                <?php } ?>
             </div>
         </div>
     </nav>

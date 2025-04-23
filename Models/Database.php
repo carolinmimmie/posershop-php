@@ -129,6 +129,12 @@ class Database
         return $data;
     }
 
+    function getPopularProducts()
+    {
+        $query = $this->pdo->query("SELECT * FROM Products ORDER BY popularityFactor DESC LIMIT 10"); // Products är TABELL 
+        return $query->fetchAll(PDO::FETCH_CLASS, 'Product'); // Product är PHP Klass
+    }
+
     // Söker efter produkter utifrån titel eller kategori, med sortering
     function searchProducts($q, $sortCol, $sortOrder)
     {
