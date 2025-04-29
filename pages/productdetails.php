@@ -3,6 +3,7 @@ require_once('Models/Product.php');
 require_once("components/Footer.php");
 require_once("components/Nav.php");
 require_once('Models/Database.php');
+require_once("Models/Cart.php");
 
 $id = $_GET['id'];
 $confirmed = $_GET['confirmed'] ?? false;
@@ -10,6 +11,18 @@ $dbContext = new Database();
 // Hämta den produkt med detta ID
 
 $product = $dbContext->getProduct($id); // TODO felhantering om inget produkt
+
+$q = $_GET['q'] ?? "";
+$userId = null;
+$session_id = null;
+
+if ($dbContext->getUsersDatabase()->getAuth()->isLoggedIn()) {
+    $userId = $dbContext->getUsersDatabase()->getAuth()->getUserId();
+}
+//$cart = $dbContext->getCartByUser($userId);
+$session_id = session_id();
+
+$cart = new Cart($dbContext, $session_id, $userId);
 
 ?>
 
@@ -31,7 +44,7 @@ $product = $dbContext->getProduct($id); // TODO felhantering om inget produkt
 </head>
 
 <body>
-    <?php Nav(); ?>
+    <?php Nav($dbContext, $cart); ?>
     <section class="py-5">
         <div class="container px-4 px-lg-5">
             <div class="row align-items-center">
@@ -59,7 +72,7 @@ $product = $dbContext->getProduct($id); // TODO felhantering om inget produkt
 
                     <!-- Köpknapp -->
                     <div class="mb-4">
-                        <a class="btn btn-dark text-white" href="checkout.php?id=<?php echo $product->id; ?>">Lägg i varukorgen</a>
+                        <a class="btn bg-dark mt-auto text-white" href="addtocart?productId=<?php echo $product->id ?>&fromPage=<?php echo urlencode((empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]") ?>">Lägg i varukorgen</a>
                     </div>
 
                     <!-- Produktbeskrivning -->

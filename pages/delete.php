@@ -38,7 +38,7 @@ if ($confirmed == true) {
 </head>
 
 <body>
-    <?php Nav(); ?>
+    <?php Nav($dbContext, $cart); ?>
     <section class="py-6">
         <div class="container px-4 px-lg-5 mt-5">
             <?php if ($productDeleteMessage): ?>

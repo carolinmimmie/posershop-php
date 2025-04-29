@@ -4,7 +4,7 @@ require_once("Models/Database.php");
 require_once("components/Footer.php");
 require_once("components/Nav.php");
 
-$dbContext = new Database();
+global $dbContext, $cart;
 
 $sortCol = $_GET['sortCol'] ?? "";
 $sortOrder = $_GET['sortOrder'] ?? "";
@@ -30,7 +30,7 @@ $sortOrder = $_GET['sortOrder'] ?? "";
 
 <body>
     <!-- Navigation-->
-    <?php Nav(); ?>
+    <?php Nav($dbContext, $cart); ?>
     <!-- Section-->
     <section class="py-2">
         <div class="container px-4 px-lg-5 mt-5">
@@ -53,8 +53,6 @@ $sortOrder = $_GET['sortOrder'] ?? "";
                     <th>Popularitet <a href="admin?sortCol=popularityFactor&sortOrder=asc"><i class="bi bi-arrow-down-circle-fill"></i></a>
                         <a href="admin?sortCol=popularityFactor&sortOrder=desc"><i class="bi bi-arrow-up-circle-fill"></i></a>
                     </th>
-
-
                     <th>Modifiera</th>
                 </thead>
 

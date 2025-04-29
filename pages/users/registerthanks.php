@@ -4,7 +4,7 @@ require_once("components/Footer.php");
 require_once('Models/Database.php');
 require_once("components/Nav.php");
 
-$dbContext = new Database();
+global $dbContext, $cart;
 
 ?>
 
@@ -26,7 +26,7 @@ $dbContext = new Database();
 </head>
 
 <body>
-    <?php Nav(); ?>
+    <?php Nav($dbContext, $cart); ?>
     <section class="py-5">
         <div class="container px-4 px-lg-5 mt-5">
             <h1>Tack</h1>

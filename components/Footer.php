@@ -6,13 +6,13 @@ function Footer()
         <div class="container">
             <div class="d-flex flex-column flex-md-row justify-content-evenly gap-5 py-4">
                 <section>
-                    <h4>Om oss</h4>
+                    <h4 style="font-size: 1rem;">Om oss</h4>
                     <ul class="list-unstyled">
                         <li>PosterShop</li>
                     </ul>
                 </section>
                 <section>
-                    <h4>Kundtjänst</h4>
+                    <h4 style="font-size: 1rem;">Kundtjänst</h4>
                     <ul class="list-unstyled">
                         <li>Kontakta oss</li>
                         <li>Vanliga frågor</li>
@@ -20,7 +20,7 @@ function Footer()
                     </ul>
                 </section>
                 <section>
-                    <h4>Sociala medier</h4>
+                    <h4 style="font-size: 1rem;">Sociala medier</h4>
                     <ul class="list-unstyled">
                         <li>Instagram</li>
                         <li>Pinterest</li>
@@ -28,7 +28,7 @@ function Footer()
                     </ul>
                 </section>
                 <section>
-                    <h4>Juridiskt</h4>
+                    <h4 style="font-size: 1rem;">Juridiskt</h4>
                     <ul class="list-unstyled">
                         <li>Villkor</li>
                         <li>Integritetspolicy</li>
@@ -36,7 +36,7 @@ function Footer()
                     </ul>
                 </section>
                 <section>
-                    <h4>Admin</h4>
+                    <h4 style="font-size: 1rem;">Admin</h4>
                     <ul class="list-unstyled">
                         <li><a href="/user/login" class="linkcolor linkcolor:hover">Logga in</a></li>
                         <li><a href="/user/register" class="linkcolor linkcolor:hover">Registrera dig</a></li>
@@ -45,7 +45,7 @@ function Footer()
                 </section>
             </div>
             <div class="fs-6">
-                <p class="m-0 text-center ">Copyright &copy; Postergalleriet 2025</p>
+                <p class="m-0 text-center">Copyright &copy; Postergalleriet 2025</p>
             </div>
         </div>
     </footer>

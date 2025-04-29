@@ -4,7 +4,7 @@ require_once("components/Footer.php");
 require_once("components/Nav.php");
 require_once('Models/Database.php');
 
-$dbContext = new Database();
+global $dbContext, $cart;
 
 
 
@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <body>
 
-    <?php Nav(); ?>
+    <?php Nav($dbContext, $cart); ?>
     <section class="py-5">
         <div class="container px-4 px-lg-5 mt-5">
             <h1>Registrera dig</h1>
@@ -63,21 +63,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             ?>
             <form method="POST">
                 <div class="form-group">
-                    <label for="username">Email</label>
-                    <input type="text" class="form-control" name="username" placeholder="namn@mail.com" value="<?php echo $username ?>">
+                    <label for="username">E-postadress</label>
+                    <input type="text" class="form-control" name="username" placeholder="Ange din e-postadress" value="<?php echo $username ?>">
                 </div>
                 <div class="form-group">
                     <label for="password">Lösenord</label>
-                    <input type="password" class="form-control" name="password" value="" placeholder="••••••••">
+                    <input type="password" class="form-control" name="password" value="" placeholder="Välj ett lösenord">
                 </div>
                 <div class="form-group">
-                    <label for="password">Password igen</label>
-                    <input type="password" class="form-control" name="password2" value="" placeholder="••••••••">
+                    <label for="password2">Upprepa lösenord</label>
+                    <input type="password" class="form-control" name="password2" value="" placeholder="Upprepa lösenordet">
                 </div>
                 <div class="my-2">
-                    <input type="submit" class="btn btn-dark" value="Register">
+                    <input type="submit" class="btn btn-dark" value="Registrera">
                 </div>
-            </form>
+        </div>
+        </form>
+
 
 
 
@@ -96,10 +98,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </body>
 
 </html>
-
-<!-- 
-<input type="text" name="title" value="<?php echo $product->title ?>">
-        <input type="text" name="price" value="<?php echo $product->price ?>">
-        <input type="text" name="stockLevel" value="<?php echo $product->stockLevel ?>">
-        <input type="text" name="categoryName" value="<?php echo $product->categoryName ?>">
-        <input type="submit" value="Uppdatera"> -->

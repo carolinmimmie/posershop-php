@@ -90,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <body>
     <!-- Navigation-->
-    <?php Nav(); ?>
+    <?php Nav($dbContext, $cart); ?>
     <section class="py-2">
         <div class="container px-4 px-lg-5 mt-5">
             <?php if ($productSavedMessage): ?>

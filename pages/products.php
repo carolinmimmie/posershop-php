@@ -6,9 +6,13 @@ require_once("components/Footer.php");
 require_once("components/Nav.php");
 require_once("Models/Database.php");
 
-$dbContext = new Database();
+global $dbContext, $cart;
+
 
 $catName = $_GET['catname'] ?? "";
+$sortCol = $_GET['sortCol'] ?? "";
+$sortOrder = $_GET['sortOrder'] ?? "";
+
 
 $header = $catName;
 if ($catName == "") {
@@ -35,54 +39,54 @@ if ($catName == "") {
 
 <body>
     <!-- Navigation-->
-    <?php Nav(); ?>
+    <?php Nav($dbContext, $cart); ?>
+
 
     <!-- Section-->
     <section class="py-2">
         <div class="container px-4 px-lg-5 mt-5">
+
             <div class="row justify-content-center my-4">
                 <div class="col-md-6 text-center">
                     <h2 class="mb-3"><?php echo $catName ?></h2>
                     <p>Utforska våra senaste posters och kollektioner – designade för att ge ditt hem en personlig och stilren touch.</p>
                 </div>
             </div>
+            <div class="mb-5">
+                <a href="?sortCol=price&sortOrder=asc&catname=<?php echo $catName; ?>" class="btn btn-dark">Lågt pris</a>
+                <a href="?sortCol=price&sortOrder=desc&catname=<?php echo $catName; ?>" class="btn btn-dark">Högt pris</a>
+                <a href="?sortCol=title&sortOrder=asc&catname=<?php echo $catName; ?>" class="btn btn-dark">A–Ö</a>
+                <a href="?sortCol=title&sortOrder=desc&catname=<?php echo $catName; ?>" class="btn btn-dark">Ö–A</a>
+            </div>
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-spacebetween">
                 <?php
-                foreach ($dbContext->getCategoryProducts($catName) as $prod) {
+                foreach ($dbContext->getCategoryProducts($catName, $sortCol, $sortOrder) as $prod) {
+
                 ?>
                     <div class="col mb-5">
                         <div class="card h-100 shadow-sm py-3">
                             <?php if ($prod->price < 10) {  ?>
                                 <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
                             <?php } ?>
-                            <!-- Product image-->
+
                             <img class="card-img-top" src="<?php echo $prod->imageUrl; ?>" alt="..." />
-                            <!-- Product details-->
                             <div class="card-body">
                                 <div class="text-center">
-                                    <!-- Product name-->
                                     <h5 class="py-2"><?php echo $prod->title; ?></h5>
                                     <div class="d-flex justify-content-center small text-warning mb-2">
                                         <?php
-                                        // Antal stjärnor som ska visas
                                         $popularityFactor = $prod->popularityFactor;
-
-                                        // Loop för att skapa stjärnorna baserat på popularityFactor
                                         for ($i = 1; $i <= 5; $i++) {
-                                            // Om $i är mindre än eller lika med popularityFactor, visa en fylld stjärna
                                             echo ($i <= $popularityFactor)
-                                                ? '<i class="bi bi-star-fill me-1"></i>'  // Fylld stjärna
-                                                : '<i class="bi bi-star me-1"></i>';      // Tom stjärna
+                                                ? '<i class="bi bi-star-fill me-1"></i>'
+                                                : '<i class="bi bi-star me-1"></i>';
                                         }
                                         ?>
                                     </div>
-                                    <!-- Product price-->
                                     <?php echo $prod->price; ?> kr
                                 </div>
                             </div>
-                            <!-- Product actions-->
                             <div class="card-footer bg-transparent py-2">
-
                                 <div class="text-center "><a class="btn bg-dark mt-auto text-white" href="/productdetails?id=<?php echo $prod->id; ?>">Köp nu</a></div>
                             </div>
                         </div>

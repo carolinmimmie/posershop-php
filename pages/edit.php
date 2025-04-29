@@ -7,8 +7,7 @@ require_once("Utils/Validator.php"); // För validering
 
 
 $id = $_GET['id'];
-// Hämta den produkt med detta ID
-$dbContext = new Database();
+global $dbContext, $cart;
 $productUpdateMessage = "";
 $product = $dbContext->getProduct($id); // TODO
 $v = new Validator($_POST); // VALIDERINGEN
@@ -84,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <body>
     <!-- Navigation-->
-    <?php Nav(); ?>
+    <?php Nav($dbContext, $cart); ?>
     <section class="py-2">
         <div class="container px-4 px-lg-5 mt-5">
             <?php if ($productUpdateMessage): ?>

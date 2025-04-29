@@ -1,10 +1,13 @@
 <?php
 require_once("Models/Database.php");
+require_once("Models/Cart.php");
 
-function Nav()
+
+function Nav($dbContext, $cart)
 {
-    $dbContext = new Database(); // Flytta in i funktionen
+    // $dbContext = new Database(); // Flytta in i funktionen
     $q = $_GET['q'] ?? "";
+
 ?>
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light nav">
@@ -48,6 +51,12 @@ function Nav()
                 <?php if ($dbContext->getUsersDatabase()->getAuth()->isLoggedIn()) { ?>
                     Hej <?php echo ucfirst($dbContext->getUsersDatabase()->getAuth()->getUsername()) ?>
                 <?php } ?>
+                <a href="/cart" class="btn btn-outline-dark mx-2" type="submit">
+                    <i class="bi-cart-fill me-1"></i>
+                    Varukorg
+                    <span class="badge bg-dark text-white ms-1 rounded-pill"><?php echo ($cart->getItemsCount()); ?></span>
+                </a>
+                </form>
             </div>
         </div>
     </nav>

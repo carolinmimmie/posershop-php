@@ -1,22 +1,29 @@
 <?php
-// Denna fil kommer alltid att laddas in först
-// vi ska mappa urler mot Pages
-// om url = "/admin" så visa admin.php
-// om url = "/edit" så visa edit.php
-// om url = "/" så visa index.php
+ob_start(); // Startar output buffering
+// ensure_session();
+session_start();
 
 error_reporting(E_ALL & ~E_DEPRECATED); // FICK LÄGGA TILL DEN HÄR
-require_once("Utils/router.php"); // LADDAR IN ROUTER KLASSEN
-require_once("vendor/autoload.php"); // LADDA ALLA DEPENDENCIES FROM VENDOR
+require_once("Utils/router.php");
+require_once("vendor/autoload.php");
+require_once("Models/Cart.php");
+require_once("Models/Database.php");
+
 //  :: en STATIC funktion
 $dotenv = Dotenv\Dotenv::createImmutable("."); // . is  current folder for the PAGE
 $dotenv->load();
-// Pilar istf .
-// \ istf .
 
-// import * as dotenv from 'dotenv';
+$dbContext = new Database();
+$userId = null;
+$session_id = null;
 
+if ($dbContext->getUsersDatabase()->getAuth()->isLoggedIn()) {
+    $userId = $dbContext->getUsersDatabase()->getAuth()->getUserId();
+}
+//$cart = $dbContext->getCartByUser($userId);
+$session_id = session_id();
 
+$cart = new Cart($dbContext, $session_id, $userId);
 
 $router = new Router();
 $router->addRoute('/', function () {
@@ -56,4 +63,11 @@ $router->addRoute('/search', function () {
 $router->addRoute('/productdetails', function () {
     require_once(__DIR__ . '/Pages/productdetails.php');
 });
+$router->addRoute('/cart', function () {
+    require_once(__DIR__ . '/Pages/showCart.php');
+});
+$router->addRoute('/addtocart', function () {
+    require_once(__DIR__ . '/Pages/addToCart.php');
+});
+
 $router->dispatch();
