@@ -1,50 +1,21 @@
 <?php
-// ONCE = en gång även om det blir cirkelreferenser
-#include_once("Models/Products.php") - OK även om filen inte finns
 require_once("Models/Product.php");
 require_once("components/Footer.php");
 require_once("components/Nav.php");
+require_once("components/Slider.php");
+require_once("components/Head.php");
 require_once("Models/Database.php");
 require_once("Models/Cart.php");
 
 global $dbContext, $cart;
 
-// $dbContext = new Database();
-
-// $userId = null;
-// $session_id = null;
-
-// if ($dbContext->getUsersDatabase()->getAuth()->isLoggedIn()) {
-//     $userId = $dbContext->getUsersDatabase()->getAuth()->getUserId();
-// }
-// //$cart = $dbContext->getCartByUser($userId);
-// $session_id = session_id();
-
-// $cart = new Cart($dbContext, $session_id, $userId);
-
-
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>Postergalleriet</title>
-    <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-    <!-- Bootstrap icons-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-    <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="/css/styles.css" rel="stylesheet" />
-</head>
+<?php Head(); ?>
 
 <body>
     <?php Nav($dbContext, $cart); ?>
-    <!-- Header-->
     <header style="background-image: url('https://images.unsplash.com/photo-1618221381711-42ca8ab6e908?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); background-size: cover; background-position: center; height: 80vh; display: flex; align-items: center; justify-content: center;">
         <div class="containertext-center ">
             <h1 class="display-4 fw-bolder text-white">Postergalleriet</h1>
@@ -59,8 +30,6 @@ global $dbContext, $cart;
             </p>
         </div>
     </div>
-
-    <!-- Section-->
     <section class="py-2">
         <div class="container px-4 px-lg-5 mt-5">
             <div class="row justify-content-center my-4">
@@ -70,59 +39,7 @@ global $dbContext, $cart;
 
                 </div>
             </div>
-            <div id="productCarouselNews" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    <?php
-                    $products = $dbContext->getAllProducts();
-                    $chunks = array_chunk($products, 3); // 3 produkter per slide
-                    foreach ($chunks as $index => $productChunk) {
-                    ?>
-                        <div class="carousel-item <?php echo $index === 0 ? 'active' : ''; ?>">
-                            <div class="row gx-4 gx-lg-5 d-flex flex-nowrap overflow-auto">
-                                <?php foreach ($productChunk as $prod) { ?>
-                                    <div class="col-md-4 mb-4">
-
-                                        <div class="card h-100 shadow-sm py-3">
-                                            <?php if ($prod->price < 10) { ?>
-                                                <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-                                            <?php } ?>
-                                            <img class="card-img-top" src="<?php echo $prod->imageUrl; ?>" alt="..." />
-                                            <div class="card-body">
-                                                <div class="text-center">
-                                                    <h5 class="py-2"><?php echo $prod->title; ?></h5>
-                                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                                        <?php
-                                                        for ($i = 1; $i <= 5; $i++) {
-                                                            echo ($i <= $prod->popularityFactor)
-                                                                ? '<i class="bi bi-star-fill me-1"></i>'
-                                                                : '<i class="bi bi-star me-1"></i>';
-                                                        }
-                                                        ?>
-                                                    </div>
-                                                    <?php echo $prod->price; ?> kr
-                                                </div>
-                                            </div>
-                                            <div class="card-footer bg-transparent py-2">
-                                                <div class="text-center">
-                                                    <a class="btn bg-dark mt-auto text-white" href="/productdetails?id=<?php echo $prod->id; ?>">Köp nu</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                <?php } ?>
-                            </div>
-                        </div>
-                    <?php } ?>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#productCarouselNews" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon bg-dark rounded-circle p-3" aria-hidden="true"></span>
-                    <span class="visually-hidden">Föregående</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#productCarouselNews" data-bs-slide="next">
-                    <span class="carousel-control-next-icon bg-dark rounded-circle p-3" aria-hidden="true"></span>
-                    <span class="visually-hidden">Nästa</span>
-                </button>
-            </div>
+            <?php Slider($dbContext->getAllProducts(), "productCarouselNews"); ?>
     </section>
     <div class="w-100 banner d-flex justify-content-center align-items-center text-white text-center" style="height: 200px; background: linear-gradient(to right, #f8cfd5, #f6a5b3); padding: 2rem;">
         <div>
@@ -141,58 +58,7 @@ global $dbContext, $cart;
 
                 </div>
             </div>
-            <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    <?php
-                    $products = $dbContext->getPopularProducts();
-                    $chunks = array_chunk($products, 3); // 3 produkter per slide
-                    foreach ($chunks as $index => $productChunk) {
-                    ?>
-                        <div class="carousel-item <?php echo $index === 0 ? 'active' : ''; ?>">
-                            <div class="row gx-4 gx-lg-5 d-flex flex-nowrap overflow-auto">
-                                <?php foreach ($productChunk as $prod) { ?>
-                                    <div class="col-md-4 mb-4">
-                                        <div class="card h-100 shadow-sm py-3">
-                                            <?php if ($prod->price < 10) { ?>
-                                                <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-                                            <?php } ?>
-                                            <img class="card-img-top" src="<?php echo $prod->imageUrl; ?>" alt="..." />
-                                            <div class="card-body">
-                                                <div class="text-center">
-                                                    <h5 class="py-2"><?php echo $prod->title; ?></h5>
-                                                    <div class="d-flex justify-content-center small text-warning mb-2">
-                                                        <?php
-                                                        for ($i = 1; $i <= 5; $i++) {
-                                                            echo ($i <= $prod->popularityFactor)
-                                                                ? '<i class="bi bi-star-fill me-1"></i>'
-                                                                : '<i class="bi bi-star me-1"></i>';
-                                                        }
-                                                        ?>
-                                                    </div>
-                                                    <?php echo $prod->price; ?> kr
-                                                </div>
-                                            </div>
-                                            <div class="card-footer bg-transparent py-2">
-                                                <div class="text-center">
-                                                    <a class="btn bg-dark mt-auto text-white" href="/productdetails?id=<?php echo $prod->id; ?>">Köp nu</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                <?php } ?>
-                            </div>
-                        </div>
-                    <?php } ?>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon bg-dark rounded-circle p-3" aria-hidden="true"></span>
-                    <span class="visually-hidden">Föregående</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
-                    <span class="carousel-control-next-icon bg-dark rounded-circle p-3" aria-hidden="true"></span>
-                    <span class="visually-hidden">Nästa</span>
-                </button>
-            </div>
+            <?php Slider($dbContext->getPopularProducts(), "productCarousel"); ?>
     </section>
     <div class="w-100 banner d-flex justify-content-center align-items-center text-center text-white" style="background-color:rgb(238, 172, 188); height: 250px; color:rgb(129, 45, 83); padding: 2rem;">
         <div>
@@ -224,15 +90,8 @@ global $dbContext, $cart;
             </div>
         </div>
     </section>
-
-
-
-
-    <!-- Footer-->
     <?php Footer(); ?>
-    <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Core theme JS-->
     <script src="js/scripts.js"></script>
 </body>
 

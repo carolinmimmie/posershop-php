@@ -1,15 +1,11 @@
 <?php
 require_once("Models/Database.php");
 require_once("Models/Cart.php");
-
-
 function Nav($dbContext, $cart)
 {
-    // $dbContext = new Database(); // Flytta in i funktionen
     $q = $_GET['q'] ?? "";
 
 ?>
-    <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light nav">
         <div class="container px-4 px-lg-5">
             <a class="navbar-brand" href="/">Postergalleriet</a>
@@ -32,7 +28,6 @@ function Nav($dbContext, $cart)
                         </ul>
                     </li>
                 </ul>
-
                 <form action="/search" method="GET" class="d-flex gap-3 ">
                     <input type="text" name="q" value="<?php echo $q; ?>" placeholder="Sök"
                         class="form-control">
@@ -40,7 +35,6 @@ function Nav($dbContext, $cart)
                 </form>
                 <?php
                 if ($dbContext->getUsersDatabase()->getAuth()->isLoggedIn()) { ?>
-
                     <li class="nav-item"><a class="nav-link linkcolor linkcolor:hover " href="/user/logout">Logga ut</a></li>
                 <?php } else { ?>
                     <li class="nav-item color-black"><a class="nav-link linkcolor linkcolor:hover " href="/user/login">Logga in</a></li>

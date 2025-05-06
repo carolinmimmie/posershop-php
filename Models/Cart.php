@@ -19,7 +19,7 @@ class Cart
     {
         $totalPrice = 0;
         foreach ($this->cartItems as $item) {
-            $totalPrice += $item->quantity;
+            $totalPrice += $item->rowPrice;
         }
         return $totalPrice;
     }
