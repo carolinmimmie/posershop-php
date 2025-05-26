@@ -14,29 +14,29 @@ $v = new Validator($_POST);
 
 $title = "";
 $description = "";
-$stockLevel = "";
+$stock = "";
 $price = "";
 $categoryName = "";
 $imageUrl =  "";
-$popularityFactor = "";
+$popularity = "";
 
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $title = $_POST['title'];
     $description = $_POST['description'];
-    $stockLevel = $_POST['stockLevel'];
+    $stock = $_POST['stock'];
     $price = $_POST['price'];
     $categoryName = $_POST['categoryName'];
     $imageUrl = $_POST['imageUrl'];
-    $popularityFactor = $_POST['popularityFactor'];
+    $popularity = $_POST['popularity'];
 
     $v->field('title')->required()->alpha_num([' '])->min_len(3)->max_len(50);
     $v->field('description')->required()->min_len(3)->max_len(50);
-    $v->field('stockLevel')->required()->numeric()->min_val(0);
+    $v->field('stock')->required()->numeric()->min_val(0);
     $v->field('price')->required()->numeric()->min_val(0);
     $v->field('categoryName')->required()->alpha_num([''])->min_len(3)->max_len(50);
-    $v->field('popularityFactor')->required()->numeric()->min_val(0);
+    $v->field('popularity')->required()->numeric()->min_val(0);
 
     if ($v->is_valid()) {
 
@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $mail->Subject = "Orderbekräftelse-postergalleriet";
         $mail->Body = "<h2>Hej</h2>, Vilket kul nyhetsbrev <b>fdsfds</b>";
         $mail->send();
-        $dbContext->insertProduct($title, $description, $stockLevel, $price, $categoryName, $imageUrl, $popularityFactor);
+        $dbContext->insertProduct($title, $description, $stock, $price, $categoryName, $imageUrl, $popularity);
         $productSavedMessage = "Produkten har sparats i databasen";
     }
 } else {
@@ -99,9 +99,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <span class="invalid-feedback"><?php echo $v->get_error_message('price');  ?></span>
                 </div>
                 <div class="form-group">
-                    <label for="stockLevel">Lagerstatus</label>
-                    <input type="number" class="form-control  <?php echo $v->get_error_message('title') != "" ? "is-invalid" : ""  ?>" name="stockLevel" value="<?php echo $stockLevel ?>">
-                    <span class="invalid-feedback"><?php echo $v->get_error_message('stockLevel');  ?></span>
+                    <label for="stock">Lagerstatus</label>
+                    <input type="number" class="form-control  <?php echo $v->get_error_message('title') != "" ? "is-invalid" : ""  ?>" name="stock" value="<?php echo $stock ?>">
+                    <span class="invalid-feedback"><?php echo $v->get_error_message('stock');  ?></span>
                 </div>
                 <div class="form-group">
                     <label for="categoryName">Kategori</label>
@@ -114,9 +114,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <span class="invalid-feedback"><?php echo $v->get_error_message('imageUrl');  ?></span>
                 </div>
                 <div class="form-group">
-                    <label for="popularityFactor">Popularitet</label>
-                    <input type="number" class="form-control  <?php echo $v->get_error_message('popularityFactor') != "" ? "is-invalid" : ""  ?>" name="popularityFactor" value="<?php echo $popularityFactor ?>">
-                    <span class="invalid-feedback"><?php echo $v->get_error_message('popularityFactor');  ?></span>
+                    <label for="popularity">Popularitet</label>
+                    <input type="number" class="form-control  <?php echo $v->get_error_message('popularity') != "" ? "is-invalid" : ""  ?>" name="popularity" value="<?php echo $popularity ?>">
+                    <span class="invalid-feedback"><?php echo $v->get_error_message('popularity');  ?></span>
                 </div>
                 <div class="my-2">
                     <input type="submit" class="btn btn-dark my-6" value="Spara produkt">

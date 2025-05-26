@@ -32,11 +32,11 @@ $sortOrder = $_GET['sortOrder'] ?? "";
                     <th>Pris <a href="admin?sortCol=price&sortOrder=asc"><i class="bi bi-arrow-down-circle-fill"></i></a>
                         <a href="admin?sortCol=price&sortOrder=desc"><i class="bi bi-arrow-up-circle-fill"></i></a>
                     </th>
-                    <th>Lagersaldo <a href="admin?sortCol=stockLevel&sortOrder=asc"><i class="bi bi-arrow-down-circle-fill"></i></a>
-                        <a href="admin?sortCol=stockLevel&sortOrder=desc"><i class="bi bi-arrow-up-circle-fill"></i></a>
+                    <th>Lagersaldo <a href="admin?sortCol=stock&sortOrder=asc"><i class="bi bi-arrow-down-circle-fill"></i></a>
+                        <a href="admin?sortCol=stock&sortOrder=desc"><i class="bi bi-arrow-up-circle-fill"></i></a>
                     </th>
-                    <th>Popularitet <a href="admin?sortCol=popularityFactor&sortOrder=asc"><i class="bi bi-arrow-down-circle-fill"></i></a>
-                        <a href="admin?sortCol=popularityFactor&sortOrder=desc"><i class="bi bi-arrow-up-circle-fill"></i></a>
+                    <th>Popularitet <a href="admin?sortCol=popularity&sortOrder=asc"><i class="bi bi-arrow-down-circle-fill"></i></a>
+                        <a href="admin?sortCol=popularity&sortOrder=desc"><i class="bi bi-arrow-up-circle-fill"></i></a>
                     </th>
                     <th>Modifiera</th>
                 </thead>
@@ -47,8 +47,8 @@ $sortOrder = $_GET['sortOrder'] ?? "";
                             <td><?php echo $prod->title; ?></td>
                             <td><?php echo $prod->categoryName; ?></td>
                             <td><?php echo $prod->price; ?></td>
-                            <td><?php echo $prod->stockLevel; ?></td>
-                            <td><?php echo $prod->popularityFactor; ?></td>
+                            <td><?php echo $prod->stock; ?></td>
+                            <td><?php echo $prod->popularity; ?></td>
                             <td><a href="/admin/edit?id=<?php echo $prod->id; ?>" class="btn btn-dark">Ändra</a></td>
                             <td><a href="/admin/delete?id=<?php echo $prod->id; ?>" class=" btn btn-danger">Radera</a></td>
                         </tr>

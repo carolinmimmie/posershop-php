@@ -1,12 +1,12 @@
 <?php
 class Product
 {
-    public $id;
+    public $d;
     public $title;
     public $price;
-    public $stockLevel;
-    public $categoryName;
-    public $imageUrl;
-    public $popularityFactor;
-    public $decription;
+    public $stock;
+    public $category;
+    public $img;
+    public $popularity;
+    public $description;
 };

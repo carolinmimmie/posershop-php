@@ -10,15 +10,15 @@ function ProductCard($products)
                         <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
                     <?php } ?>
 
-                    <img class="card-img-top" src="<?php echo $prod->imageUrl; ?>" alt="..." />
+                    <img class="card-img-top" src="<?php echo $prod->img; ?>" alt="..." />
                     <div class="card-body">
                         <div class="text-center">
                             <h5 class="py-2"><?php echo $prod->title; ?></h5>
                             <div class="d-flex justify-content-center small text-warning mb-2">
                                 <?php
-                                $popularityFactor = $prod->popularityFactor;
+                                $popularity = $prod->popularity;
                                 for ($i = 1; $i <= 5; $i++) {
-                                    echo ($i <= $popularityFactor)
+                                    echo ($i <= $popularity)
                                         ? '<i class="bi bi-star-fill me-1"></i>'
                                         : '<i class="bi bi-star me-1"></i>';
                                 }
@@ -28,7 +28,7 @@ function ProductCard($products)
                         </div>
                     </div>
                     <div class="card-footer bg-transparent py-2">
-                        <div class="text-center"><a class="btn bg-dark mt-auto text-white" href="/productdetails?id=<?php echo $prod->id; ?>">Köp nu</a></div>
+                        <div class="text-center"><a class="btn bg-dark mt-auto text-white" href="/productdetails?pimId=<?php echo $prod->pimId; ?>">Köp nu</a></div>
                     </div>
                 </div>
             </div>

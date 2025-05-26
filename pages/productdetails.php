@@ -6,11 +6,12 @@ require_once('Models/Database.php');
 require_once("components/Head.php");
 require_once("Models/Cart.php");
 
-$id = $_GET['id'];
+$pimId = $_GET['pimId'];
+
 $confirmed = $_GET['confirmed'] ?? false;
 $dbContext = new Database();
 
-$product = $dbContext->getProduct($id);
+$product = $dbContext->getProduct($pimId);
 
 $q = $_GET['q'] ?? "";
 $userId = null;
@@ -37,23 +38,23 @@ $cart = new Cart($dbContext, $session_id, $userId);
         <div class="container px-4 px-lg-5">
             <div class="row align-items-center">
                 <div class="col-md-6 mb-4">
-                    <img class="img-fluid rounded shadow-sm product-details-img" src="<?php echo $product->imageUrl; ?>" alt="<?php echo $product->title; ?>" />
+                    <img class="img-fluid rounded shadow-sm product-details-img" src="<?php echo $product->img; ?>" alt="<?php echo $product->title; ?>" />
                 </div>
                 <div class="col-md-6">
                     <h4 class="display-4 mb-3"><?php echo $product->title; ?></h4>
                     <p class="fs-4 mb-2"><?php echo $product->price; ?> kr</p>
                     <div class="mb-3">
                         <?php
-                        $popularityFactor = $product->popularityFactor;
+                        $popularity = $product->popularity;
                         for ($i = 1; $i <= 5; $i++) {
-                            echo ($i <= $popularityFactor)
+                            echo ($i <= $popularity)
                                 ? '<i class="bi bi-star-fill text-warning me-1"></i>'
                                 : '<i class="bi bi-star text-warning me-1"></i>';
                         }
                         ?>
                     </div>
                     <div class="mb-4">
-                        <a class="btn bg-dark mt-auto text-white" href="addtocart?productId=<?php echo $product->id ?>&fromPage=<?php echo urlencode((empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]") ?>">Lägg i varukorgen</a>
+                        <a class="btn bg-dark mt-auto text-white" href="addtocart?productId=<?php echo $product->pimId ?>&fromPage=<?php echo urlencode((empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]") ?>">Lägg i varukorgen</a>
                     </div>
 
                     <h3>Beskrivning</h3>

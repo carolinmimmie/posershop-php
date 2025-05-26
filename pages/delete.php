@@ -32,7 +32,7 @@ if ($confirmed == true) {
             <?php endif; ?>
             <?php if ($product !== null): ?>
                 <h1><?php echo $product->title; ?></h1>
-                <img class="card-img-top" src="<?php echo $product->imageUrl; ?>" alt="Produktbild" />
+                <img class="card-img-top" src="<?php echo $product->img; ?>" alt="Produktbild" />
                 <h2>Är du säker på att du vill ta bort produkten?</h2>
                 <a href="/admin/delete?id=<?php echo $id; ?>&confirmed=true" class="btn btn-danger">Ja</a>
                 <a href="/admin" class="btn btn-primary">Nej</a>
