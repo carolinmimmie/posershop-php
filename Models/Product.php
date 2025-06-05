@@ -1,7 +1,7 @@
 <?php
 class Product
 {
-    public $d;
+    public $pimId;
     public $title;
     public $price;
     public $stock;
@@ -9,4 +9,5 @@ class Product
     public $img;
     public $popularity;
     public $description;
+    public $active;
 };

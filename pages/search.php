@@ -5,11 +5,15 @@ require_once("components/Nav.php");
 require_once("components/Head.php");
 require_once("components/SortButtons.php");
 require_once("Models/Database.php");
+require_once("Utils/searchengine.php");
 
 global $dbContext, $cart;
 $q = $_GET['q'] ?? "";
-$sortCol = $_GET['sortCol'] ?? "";
-$sortOrder = $_GET['sortOrder'] ?? "";
+$sortCol = $_GET['sortCol'] ?? "title";
+$sortOrder = $_GET['sortOrder'] ?? "asc";
+$SearchEngine = new SearchEngine();
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,7 +32,7 @@ $sortOrder = $_GET['sortOrder'] ?? "";
             <?php SortButtons("q", $q); ?>
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-spacebetween">
                 <?php
-                $products = $dbContext->searchProducts($q, $sortCol, $sortOrder);
+                $products = $SearchEngine->searchProducts($q, $sortCol, $sortOrder);
                 if (empty($products)) {
                     echo '<div class="col-12 my-5"><p>Inga produkter hittades.</p></div>';
                 } else {
