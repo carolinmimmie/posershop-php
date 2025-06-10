@@ -45,7 +45,7 @@ function Nav($dbContext, $cart)
                 <?php if ($dbContext->getUsersDatabase()->getAuth()->isLoggedIn()) { ?>
                     Hej <?php echo ucfirst($dbContext->getUsersDatabase()->getAuth()->getUsername()) ?>
                 <?php } ?>
-                <a href="/cart" class="btn btn-outline-dark mx-2" type="submit">
+                <a href="/showcart" class="btn btn-outline-dark mx-2">
                     <i class="bi-cart-fill me-1"></i>
                     Varukorg
                     <span class="badge bg-dark text-white ms-1 rounded-pill"><?php echo ($cart->getItemsCount()); ?></span>

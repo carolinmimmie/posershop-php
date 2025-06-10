@@ -6,7 +6,7 @@ require_once("Models/Database.php");
 require_once("components/Head.php");
 require_once("Utils/Validator.php");
 
-$id = $_GET['id'];
+$id = $_GET['pimId'];
 global $dbContext, $cart;
 $productUpdateMessage = "";
 $product = $dbContext->getProduct($id);
@@ -17,8 +17,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $product->title = $_POST['title'];
     $product->stock = $_POST['stock'];
     $product->price = $_POST['price'];
-    $product->categoryName = $_POST['categoryName'];
-    $product->imageUrl = $_POST['imageUrl'];
+    $product->category = $_POST['category'];
+    $product->img = $_POST['img'];
     $product->popularity = $_POST['popularity'];
     $dbContext->updateProduct($product);
     $productUpdateMessage = "Produkten har uppdaterats i databasen";
@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $v->field('title')->required()->alpha_num([' '])->min_len(3)->max_len(50);
     $v->field('stock')->required()->numeric()->min_val(0);
     $v->field('price')->required()->numeric()->min_val(0);
-    $v->field('categoryName')->required()->alpha_num([''])->min_len(3)->max_len(50);
+    $v->field('category')->required()->alpha_num([''])->min_len(3)->max_len(50);
     $v->field('popularity')->required()->numeric()->min_val(0);
 
     if ($v->is_valid()) {
@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             <?php
 
-            $id = $_GET['id'];
+            $id = $_GET['pimId'];
 
             ?>
             <h2>Ändra produkt</h2>
@@ -91,13 +91,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </div>
                 <div class="form-group">
                     <label for="categoryName">Kategori</label>
-                    <input type="text" class="form-control  <?php echo $v->get_error_message('categoryName') != "" ? "is-invalid" : ""  ?>" name="categoryName" value="<?php echo $product->categoryName ?>">
+                    <input type="text" class="form-control  <?php echo $v->get_error_message('category') != "" ? "is-invalid" : ""  ?>" name="category" value="<?php echo $product->category ?>">
                     <span class="invalid-feedback"><?php echo $v->get_error_message('categoryName');  ?></span>
                 </div>
                 <div class="form-group">
-                    <label for="imageUrl">Bildkälla</label>
-                    <input type="text" class="form-control  <?php echo $v->get_error_message('imageUrl') != "" ? "is-invalid" : ""  ?>" name="imageUrl" value="<?php echo $product->imageUrl ?>">
-                    <span class="invalid-feedback"><?php echo $v->get_error_message('imageUrl');  ?></span>
+                    <label for="image">Bildkälla</label>
+                    <input type="text" class="form-control  <?php echo $v->get_error_message('img') != "" ? "is-invalid" : ""  ?>" name="img" value="<?php echo $product->img ?>">
+                    <span class="invalid-feedback"><?php echo $v->get_error_message('img');  ?></span>
                 </div>
                 <div class="form-group">
                     <label for="popularity">Popularitet</label>

@@ -5,7 +5,7 @@ require_once("components/Nav.php");
 require_once("components/Head.php");
 require_once('Models/Database.php');
 
-$id = $_GET['id'];
+$id = $_GET['pimId'];
 $confirmed = $_GET['confirmed'] ?? false;
 global $dbContext, $cart;
 $productDeleteMessage = "";
@@ -34,7 +34,7 @@ if ($confirmed == true) {
                 <h1><?php echo $product->title; ?></h1>
                 <img class="card-img-top" src="<?php echo $product->img; ?>" alt="Produktbild" />
                 <h2>Är du säker på att du vill ta bort produkten?</h2>
-                <a href="/admin/delete?id=<?php echo $id; ?>&confirmed=true" class="btn btn-danger">Ja</a>
+                <a href="/admin/delete?pimId=<?php echo $id; ?>&confirmed=true" class="btn btn-danger">Ja</a>
                 <a href="/admin" class="btn btn-primary">Nej</a>
             <?php else: ?>
                 <div class="mb-5">

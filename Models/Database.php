@@ -133,7 +133,7 @@ class Database
             'price' => $product->price,
             'stock' => $product->stock,
             'category' => $product->category,
-            'id' => $product->id,
+            'id' => $product->pimId,
             'img' => $product->img,
             'popularity' => $product->popularity
         ]);
@@ -142,16 +142,17 @@ class Database
     // Tar bort en produkt från databasen
     function deleteProduct($id)
     {
-        $query = $this->pdo->prepare("DELETE FROM Products WHERE id = :id");
+        $query = $this->pdo->prepare("DELETE FROM Products WHERE pimId = :id");
         $query->execute(['id' => $id]);
     }
 
     // Lägger till en ny produkt i databasen
-    function insertProduct($title, $description, $stock, $price, $category, $img, $popularity)
+    function insertProduct($pimId, $title, $description, $stock, $price, $category, $img, $popularity)
     {
-        $sql = "INSERT INTO Products (title,description,price,stock,category,img,popularity) VALUES (:title,:description,:price,:stock,:category,:img,:popularity)";
+        $sql = "INSERT INTO Products (pimId,title,description,price,stock,category,img,popularity) VALUES (:pimId,:title,:description,:price,:stock,:category,:img,:popularity)";
         $query = $this->pdo->prepare($sql);
         $query->execute([
+            'pimId' => $pimId,
             'title' => $title,
             'description' => $description,
             'price' => $price,
@@ -232,7 +233,7 @@ class Database
 
 
 
-    //FUNTIONER FÖR CART
+    //FUNkTIONER FÖR CART
     function getCartItems($userId, $sessionId)
     {
         if ($userId != null) {

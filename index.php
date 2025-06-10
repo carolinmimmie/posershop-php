@@ -63,11 +63,23 @@ $router->addRoute('/search', function () {
 $router->addRoute('/productdetails', function () {
     require_once(__DIR__ . '/Pages/productdetails.php');
 });
-$router->addRoute('/cart', function () {
-    require_once(__DIR__ . '/Pages/showCart.php');
-});
+// $router->addRoute('/cart', function () {
+//     require_once(__DIR__ . '/Pages/showCart.php');
+// });
 $router->addRoute('/addtocart', function () {
     require_once(__DIR__ . '/Pages/addToCart.php');
+});
+$router->addRoute('/checkout', function () {
+    require_once(__DIR__ . '/Pages/checkout.php');
+});
+$router->addRoute('/checkoutsuccess', function () {
+    require_once(__DIR__ . '/Pages/checkoutSuccess.php');
+});
+$router->addRoute('/showcart', function () {
+    require_once(__DIR__ . '/Pages/showCart.php');
+});
+$router->addRoute('/deletefromcart', function () {
+    require_once(__DIR__ . '/Pages/deleteFromCart.php');
 });
 
 $router->dispatch();

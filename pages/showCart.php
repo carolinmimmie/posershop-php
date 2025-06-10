@@ -1,6 +1,8 @@
 <?php
 require_once("Models/Product.php");
 require_once("Models/Database.php");
+require_once("Models/CartItem.php");
+require_once("Models/Cart.php");
 require_once("components/Footer.php");
 require_once("components/Head.php");
 require_once("components/Nav.php");
@@ -41,11 +43,11 @@ $cart = new Cart($dbContext, $session_id, $userId);
                         <tr>
                             <td><?php echo $cartItem->productName; ?></td>
                             <td><?php echo $cartItem->productPrice; ?></td>
-                            <td><button>-</button><?php echo $cartItem->quantity; ?><button>+</button></td>
+                            <td><a href="/addtocart?productId=<?php echo $cartItem->productId ?>&fromPage=<?php echo urlencode((empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]") ?>" class="btn btn-primary">+</a> <?php echo $cartItem->quantity; ?> <a href="/deletefromcart?productId=<?php echo $cartItem->productId ?>&fromPage=<?php echo urlencode((empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]") ?>" class="btn btn-dark">-</a> </td>
                             <td><?php echo $cartItem->rowPrice; ?></td>
-                            <td><a href="/admin/delete?id=<>" class=" btn btn-danger">Ta bort</a></td>
-                        </tr>
-                    <?php } ?>
+                            <td> <a href="/deletefromcart?removeCount=<?php echo $cartItem->quantity ?>&productId=<?php echo $cartItem->productId ?>&fromPage=<?php echo urlencode((empty($_SERVER['HTTPS']) ? 'http' : 'https') . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]") ?>" class="btn">DELETE ALL</a> </td>
+
+                        <?php } ?>
                 </tbody>
                 <th>Total:</th>
                 <th></th>
@@ -53,6 +55,9 @@ $cart = new Cart($dbContext, $session_id, $userId);
                 <th></th>
                 <td><?php echo $cart->getTotalPrice(); ?> kr</td>
             </table>
+            <td>
+                <a href="/checkout" onclick="onCheckout()" class="btn btn-success">Checkout</a>
+            </td>
         </div>
     </section>
     <?php Footer(); ?>

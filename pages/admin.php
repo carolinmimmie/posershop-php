@@ -45,12 +45,12 @@ $sortOrder = $_GET['sortOrder'] ?? "";
                     <?php foreach ($dbContext->getAllProducts($sortCol, $sortOrder) as $prod) { ?>
                         <tr>
                             <td><?php echo $prod->title; ?></td>
-                            <td><?php echo $prod->categoryName; ?></td>
+                            <td><?php echo $prod->category; ?></td>
                             <td><?php echo $prod->price; ?></td>
                             <td><?php echo $prod->stock; ?></td>
                             <td><?php echo $prod->popularity; ?></td>
-                            <td><a href="/admin/edit?id=<?php echo $prod->id; ?>" class="btn btn-dark">Ändra</a></td>
-                            <td><a href="/admin/delete?id=<?php echo $prod->id; ?>" class=" btn btn-danger">Radera</a></td>
+                            <td><a href="/admin/edit?pimId=<?php echo $prod->pimId; ?>" class="btn btn-dark">Ändra</a></td>
+                            <td><a href="/admin/delete?pimId=<?php echo $prod->pimId; ?>" class=" btn btn-danger">Radera</a></td>
                         </tr>
                     <?php } ?>
                 </tbody>
